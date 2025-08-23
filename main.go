@@ -13,7 +13,52 @@ func main() {
 
 }
 
-// 6.8.2025
+// #1
+func twoSum(nums []int, target int) []int {
+
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i]+nums[j] == target {
+				return []int{i, j}
+			}
+		}
+	}
+	return nil
+
+}
+
+// #2
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+
+	dummyHead := &ListNode{}
+	current := dummyHead
+	carry := 0
+
+	for l1 != nil || l2 != nil || carry != 0 {
+		sum := carry
+		if l1 != nil {
+			sum += l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			sum += l2.Val
+			l2 = l2.Next
+		}
+
+		carry = sum / 10
+		current.Next = &ListNode{Val: sum % 10}
+		current = current.Next
+	}
+
+	return dummyHead.Next
+}
+
+// 6.8.2025 #3
 func lengthOfLongestSubstring(s string) int {
 	if len(s) == 0 {
 		return 0
@@ -58,7 +103,7 @@ func lengthOfLongestSubstring(s string) int {
 	return maxLength
 }
 
-// 6.8.2025
+// 6.8.2025 #4
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 
 	var merged []int
@@ -88,7 +133,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 
 }
 
-// 7.8.2025
+// 7.8.2025 #5
 func longestPalindrome(s string) string {
 	if len(s) == 0 {
 		return ""
@@ -125,7 +170,7 @@ func longestPalindrome(s string) string {
 	return maxPalindrome
 }
 
-// 10.8.2025
+// 10.8.2025 #6
 func convert(s string, numRows int) string {
 
 	if numRows <= 1 {
@@ -210,4 +255,24 @@ func convert(s string, numRows int) string {
 
 	return finalResult
 
+}
+
+// #9
+func isPalindrome(x int) bool {
+
+	switch {
+	case x < 0:
+		return false
+	case x >= 0: // Changed from x > 0 to handle x = 0
+		result := 0
+		n := x // Use := for cleaner declaration
+
+		for n > 0 {
+			result = result*10 + n%10 // Use n instead of x
+			n = n / 10
+		}
+
+		return x == result // Simplified return
+	}
+	return false
 }
