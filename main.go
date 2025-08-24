@@ -1,11 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"strconv"
+)
 
 func main() {
 
-	s := convert("PAYPALISHIRING", 3)
-	fmt.Println(s)
+	x := reverse(12345)
+	fmt.Println(x)
+
+	// s := convert("PAYPALISHIRING", 3)
+	// fmt.Println(s)
 	// a := longestPalindrome("aasbabc")
 	//nums1 := [4]int{-2, 4, -1, 3}
 	//nums2 := [3]int{-5, 0, 2}
@@ -255,6 +262,52 @@ func convert(s string, numRows int) string {
 
 	return finalResult
 
+}
+
+// 25.8.2025 #7
+func reverse(x int) int {
+	if x > math.MaxInt32 || x < math.MinInt32 {
+		return 0
+	}
+
+	if x < 0 {
+		x = -x
+
+		str := strconv.Itoa(x)
+		var digits []int
+
+		for i := len(str) - 1; i >= 0; i-- {
+			digits = append(digits, int(str[i]-'0'))
+		}
+
+		result := 0
+		for _, digit := range digits {
+			result = result*10 + digit
+		}
+
+		if result < math.MinInt32 {
+			return 0
+		}
+		return -result
+	} else if x > 0 {
+		str := strconv.Itoa(x)
+		var digits []int
+
+		for i := len(str) - 1; i >= 0; i-- {
+			digits = append(digits, int(str[i]-'0'))
+		}
+
+		result := 0
+		for _, digit := range digits {
+			result = result*10 + digit
+		}
+		if result > math.MaxInt32 {
+			return 0
+		}
+		return result
+	} else {
+		return 0
+	}
 }
 
 // #9
